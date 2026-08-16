@@ -79,24 +79,45 @@ def _(pd, times):
 
 
 @app.cell
-def _(edited_df, np, points_df):
+def _(edited_df, np, pd, points_df):
     _t = points_df['time'].values
-
     _tau = edited_df['time'].values
     _rth = edited_df['rth'].values
-
     terms = _rth[None, :] * (1 - np.exp(-_t[:, None] / _tau[None, :]))
-    plot_df = points_df.assign(Rthjc = terms.sum(axis=1))
+
+    # wide: one column per Foster term
+    _term_cols = pd.DataFrame(
+        terms,
+        columns=[f'R{i+1} (τ={tau_i:.3g}s)' for i, tau_i in enumerate(_tau)]
+    )
+
+    plot_df = points_df.assign(Rthjc=terms.sum(axis=1))
+    plot_df = pd.concat([plot_df, _term_cols], axis=1)
     return (plot_df,)
 
 
 @app.cell
 def _(alt, mo, plot_df):
-    chart = alt.Chart(plot_df).mark_line().encode(
-        x=alt.X('time', scale=alt.Scale(type='log')),  # log scale makes sense given the huge time range
-        y='Rthjc'
+    term_cols = [c for c in plot_df.columns if c not in ('time', 'Rthjc')]
+    terms_long = plot_df.melt(
+        id_vars='time', value_vars=term_cols,
+        var_name='component', value_name='Rth'
     )
 
+    individual_lines = alt.Chart(terms_long).mark_line(strokeDash=[4, 2], opacity=0.6).encode(
+        x=alt.X('time:Q', scale=alt.Scale(type='log'), title='Time (s)'),
+        y=alt.Y('Rth:Q', title='Rth (°C/kW)'),
+        color=alt.Color('component:N', title='Foster term')
+    )
+
+    total_line = alt.Chart(plot_df).mark_line(color='black', strokeWidth=3).encode(
+        x=alt.X('time:Q', scale=alt.Scale(type='log')),
+        y='Rthjc:Q'
+    )
+
+    chart = (individual_lines + total_line).properties(
+        title='Foster Network - Individual Terms and Total'
+    )
     mo.ui.altair_chart(chart)
     return
 
