@@ -22,21 +22,17 @@ def _(mo):
     # Foster to Cauer Model Conversion
 
     Most power semiconductor datasheets provide their transient thermal resistance coefficients as Foster coefficients. While the Foster model is easier to fit mathematically, it is less physically representative than the Cauer model, so it is desirable to convert between the two.
+
+    The default device is a [Dynex DCR4420H65](https://www.dynexsemi.com/Portals/0/assets/downloads/DNX_DCR4420H65.pdf) thyristor, with the double-side coefficients used.
     """)
     return
-
-
-@app.cell
-def _(np):
-    times = np.logspace(-3, 2, 500)
-    return (times,)
 
 
 @app.cell
 def _(mo, pd):
     foster_df = pd.DataFrame(
         columns=['time', 'rth'],
-        data=[[1.23, 6.22e-3], [0.235, 2.465e-3], [0.061, 0.723e-3], [0.0092, 0.607e-3]]
+        data=[[0.67, 1.248], [0.146, 0.833], [0.02, 0.606], [1.287, 1.568]]
     )
     get_data, set_data = mo.state(foster_df)
     return foster_df, get_data, set_data
@@ -90,6 +86,15 @@ def _(data_edited, mo, restore_defaults, rth_c_kw):
 def _(data_edited, pd):
     edited_df = pd.DataFrame(data_edited.value)
     return (edited_df,)
+
+
+@app.cell
+def _(edited_df, np):
+    min_pow_10 = np.floor(np.log10(edited_df['time'].min())) - 1
+    max_pow_10 = np.ceil(np.log10(edited_df['time'].max())) + 1
+
+    times = np.logspace(min_pow_10, max_pow_10, 500)
+    return (times,)
 
 
 @app.cell
