@@ -200,7 +200,10 @@ def _(calc_df, pd, sp):
         cauer_list.append([float(resistance), float(capacitance)])
 
     cauer_df = pd.DataFrame(columns=['r', 'c'], data=cauer_list, index=cauer_idx)
-    cauer_df
+    mo.vstack([
+        mo.md('### Output Cauer terms'),
+        cauer_df
+    ])
     return
 
 
