@@ -174,32 +174,51 @@ def _(alt, plot_df):
     return
 
 
-@app.cell(hide_code=True)
-def _(calc_df, pd, sp):
-    cauer_df = pd.DataFrame(columns=['r', 'c'])
+@app.cell
+def _(calc_df, sp):
     cauer_list = []
     cauer_idx = []
+    eqn_render = []
     s = sp.symbols('s')
 
     # Calculate the initial Foster transfer function
     transfer_fcn = 0
     for count, row in enumerate(calc_df.itertuples()):
         transfer_fcn += row.rth / (row.time * s + 1)
+    
+    eqn_render.append(mo.md(f'Original equation:\n\n$${sp.latex(transfer_fcn)}$$'))
 
     # Simplify into a single function and calculate the numerator/denominator
     numerator, denominator = sp.fraction(sp.simplify(sp.together(transfer_fcn)))
 
+    eqn_render.append(mo.md(f'Single fraction form:\n\n$${sp.latex(numerator / denominator)}$$'))
+
     for i in range(count + 1, 0, -1):
         cauer_idx.append(i)
+        eqn_render.append(mo.md(f'####***Iteration {count - i + 2}***'))
         quotient, remainder = sp.div(denominator, numerator, s)
-
         kn = quotient.coeff(s, 0)
+        eqn_render.append(mo.md(f'\n\n$${sp.latex(denominator / numerator)}$$\nQuotient: ${sp.latex(quotient)}$\n\nRemainder: ${sp.latex(remainder)}$\n\n$k_{i} = {sp.latex(kn)}$'))
+    
+
+    
         resistance = 1 / kn
         capacitance = quotient.coeff(s, 1)
         numerator, denominator = sp.fraction(sp.simplify(-(remainder / kn) / (kn * numerator + remainder)))
         cauer_list.append([float(resistance), float(capacitance)])
 
+    mo.accordion({'Show calculations': mo.vstack(eqn_render)})
+    return cauer_idx, cauer_list
+
+
+@app.cell
+def _(cauer_idx, cauer_list, pd):
     cauer_df = pd.DataFrame(columns=['r', 'c'], data=cauer_list, index=cauer_idx)
+    return (cauer_df,)
+
+
+@app.cell
+def _(cauer_df):
     mo.vstack([
         mo.md('### Output Cauer terms'),
         cauer_df

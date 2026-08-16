@@ -188,13 +188,39 @@
       "console": []
     },
     {
-      "id": "nWHF",
-      "code_hash": "5018cbc5fad2f2ac624a97fa2497e0be",
+      "id": "rdAC",
+      "code_hash": "ba6534998350d0e68b36f839875d1033",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"output-cauer-terms\">Output Cauer terms</h3></span><marimo-ui-element object-id='nWHF-0' random-id='90e9ea26-c11a-da16-c94f-8a1ea2de0bc5'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:4,&#92;&quot;r&#92;&quot;:0.0009807096129422722,&#92;&quot;c&#92;&quot;:25.584278898582873},{&#92;&quot;Index0&#92;&quot;:3,&#92;&quot;r&#92;&quot;:0.0015405842366084928,&#92;&quot;c&#92;&quot;:113.98401143500831},{&#92;&quot;Index0&#92;&quot;:2,&#92;&quot;r&#92;&quot;:0.001544529219904115,&#92;&quot;c&#92;&quot;:370.55801188042705},{&#92;&quot;Index0&#92;&quot;:1,&#92;&quot;r&#92;&quot;:0.00018917693054512044,&#92;&quot;c&#92;&quot;:5278.040156345165}]&quot;' data-total-rows='4' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;r&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;c&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element></div>"
+            "text/html": "<marimo-accordion data-labels='[&quot;&#92;u003cspan class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&#92;u003e&#92;u003cspan class=&#92;&quot;paragraph&#92;&quot;&#92;u003eShow calculations&#92;u003c/span&#92;u003e&#92;u003c/span&#92;u003e&quot;]' data-multiple='false'><div><div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Original equation:</span>\n<marimo-tex class=\"arithmatex\">||[\\frac{0.001568}{1.287 s + 1} + \\frac{0.001248}{0.67 s + 1} + \\frac{0.000833}{0.146 s + 1} + \\frac{0.000606}{0.02 s + 1}||]</marimo-tex></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Single fraction form:</span>\n<marimo-tex class=\"arithmatex\">||[\\frac{9.841539056 \\cdot 10^{-5} s^{3} + 0.001895827358 s^{2} + 0.006045451 s + 0.004255}{0.0025178868 s^{4} + 0.14885458 s^{3} + 1.190072 s^{2} + 2.123 s + 1.0}||]</marimo-tex></span><span class=\"markdown prose dark:prose-invert contents\"><h4 id=\"iteration-1\"><strong><em>Iteration 1</em></strong></h4></span><span class=\"markdown prose dark:prose-invert contents\"><marimo-tex class=\"arithmatex\">||[\\frac{0.0025178868 s^{4} + 0.14885458 s^{3} + 1.190072 s^{2} + 2.123 s + 1.0}{9.841539056 \\cdot 10^{-5} s^{3} + 0.001895827358 s^{2} + 0.006045451 s + 0.004255}||]</marimo-tex><span class=\"paragraph\">Quotient: <marimo-tex class=\"arithmatex\">||(25.5842788985829 s + 1019.66982560705||)</marimo-tex></span>\n<span class=\"paragraph\">Remainder: <marimo-tex class=\"arithmatex\">||(- 0.897714455964643 s^{2} - 4.15022507359941 s - 3.33869510795798||)</marimo-tex></span>\n<span class=\"paragraph\"><marimo-tex class=\"arithmatex\">||(k_4 = 1019.66982560705||)</marimo-tex></span></span><span class=\"markdown prose dark:prose-invert contents\"><h4 id=\"iteration-2\"><strong><em>Iteration 2</em></strong></h4></span><span class=\"markdown prose dark:prose-invert contents\"><marimo-tex class=\"arithmatex\">||[\\frac{0.100351204129364 s^{3} + 1.03540349554828 s^{2} + 2.01413889328653 s + 1.0}{0.000880397196641768 s^{2} + 0.00407016562555299 s + 0.00327429038705773}||]</marimo-tex><span class=\"paragraph\">Quotient: <marimo-tex class=\"arithmatex\">||(113.984011435008 s + 649.10439574628||)</marimo-tex></span>\n<span class=\"paragraph\">Remainder: <marimo-tex class=\"arithmatex\">||(- 1.00104025859525 s - 1.12535628318896||)</marimo-tex></span>\n<span class=\"paragraph\"><marimo-tex class=\"arithmatex\">||(k_3 = 649.10439574628||)</marimo-tex></span></span><span class=\"markdown prose dark:prose-invert contents\"><h4 id=\"iteration-3\"><strong><em>Iteration 3</em></strong></h4></span><span class=\"markdown prose dark:prose-invert contents\"><marimo-tex class=\"arithmatex\">||[\\frac{0.571469690342874 s^{2} + 1.6409221403666 s + 1.0}{0.00154218684260233 s + 0.00173370615044924}||]</marimo-tex><span class=\"paragraph\">Quotient: <marimo-tex class=\"arithmatex\">||(370.558011880427 s + 647.446475672426||)</marimo-tex></span>\n<span class=\"paragraph\">Remainder: <marimo-tex class=\"arithmatex\">||(-0.122481936959965||)</marimo-tex></span>\n<span class=\"paragraph\"><marimo-tex class=\"arithmatex\">||(k_2 = 647.446475672426||)</marimo-tex></span></span><span class=\"markdown prose dark:prose-invert contents\"><h4 id=\"iteration-4\"><strong><em>Iteration 4</em></strong></h4></span><span class=\"markdown prose dark:prose-invert contents\"><marimo-tex class=\"arithmatex\">||[5278.04015634517 s + 5286.05679941239||]</marimo-tex><span class=\"paragraph\">Quotient: <marimo-tex class=\"arithmatex\">||(5278.04015634517 s + 5286.05679941239||)</marimo-tex></span>\n<span class=\"paragraph\">Remainder: <marimo-tex class=\"arithmatex\">||(0||)</marimo-tex></span>\n<span class=\"paragraph\"><marimo-tex class=\"arithmatex\">||(k_1 = 5286.05679941239||)</marimo-tex></span></span></div></div></marimo-accordion>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "DMWu",
+      "code_hash": "cb4e092e0c7b3746bfcb6ffc12b2fe92",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "NENX",
+      "code_hash": "2d062905bb4beecce43284460f2c64a2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"output-cauer-terms\">Output Cauer terms</h3></span><marimo-ui-element object-id='NENX-0' random-id='fd7cdb36-6d2d-5115-5e11-bcc2f66ba864'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:4,&#92;&quot;r&#92;&quot;:0.0009807096129422722,&#92;&quot;c&#92;&quot;:25.584278898582873},{&#92;&quot;Index0&#92;&quot;:3,&#92;&quot;r&#92;&quot;:0.0015405842366084928,&#92;&quot;c&#92;&quot;:113.98401143500831},{&#92;&quot;Index0&#92;&quot;:2,&#92;&quot;r&#92;&quot;:0.001544529219904115,&#92;&quot;c&#92;&quot;:370.55801188042705},{&#92;&quot;Index0&#92;&quot;:1,&#92;&quot;r&#92;&quot;:0.00018917693054512044,&#92;&quot;c&#92;&quot;:5278.040156345165}]&quot;' data-total-rows='4' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;r&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;c&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element></div>"
           }
         }
       ],
