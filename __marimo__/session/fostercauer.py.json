@@ -1,0 +1,190 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.16",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "faa0acbb851461173f4bc0cb905794fa",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "c496f7a653c7eeedd163ccf9e83b8b4d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"foster-to-cauer-model-conversion\">Foster to Cauer Model Conversion</h1>\n<span class=\"paragraph\">Most power semiconductor datasheets provide their transient thermal resistance coefficients as Foster coefficients. While the Foster model is easier to fit mathematically, it is less physically representative than the Cauer model, so it is desirable to convert between the two.</span>\n<span class=\"paragraph\">The default device is a <a href=\"https://www.dynexsemi.com/Portals/0/assets/downloads/DNX_DCR4420H65.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Dynex DCR4420H65</a> thyristor, with the double-side coefficients used.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "fbdcb4b5c7613c2d642986b8852ea266",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "3dfe400934d76b7b95acde5608334cb7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "78cd9585929de6a570a6acb8b7ed1ecc",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "5624e52574ad956b41196fc3b7e8fad4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "9b31e2ee56d9b6a7cd6988c8d272ec9b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "ef350204613b92cef3531fad3b453d94",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "43b6a5cb89e03c7c480b9009825d1070",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "33ee53001009392c438d46d8b7968ecb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "e73884e21441c244b8287682a6a67be7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "bfe0a8c61e6f3928c5499d0201824014",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "80f55764811eef1347e4f7fcd3b086a5",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "225e7af77582188c5bdda89a5c6d8382",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='nWHF-0' random-id='3c8071f7-69f1-c8ee-8b04-eb12ab4e432d'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:4,&#92;&quot;r&#92;&quot;:0.0009807096129422722,&#92;&quot;c&#92;&quot;:25.584278898582873},{&#92;&quot;Index0&#92;&quot;:3,&#92;&quot;r&#92;&quot;:0.0015405842366084928,&#92;&quot;c&#92;&quot;:113.98401143500831},{&#92;&quot;Index0&#92;&quot;:2,&#92;&quot;r&#92;&quot;:0.001544529219904115,&#92;&quot;c&#92;&quot;:370.55801188042705},{&#92;&quot;Index0&#92;&quot;:1,&#92;&quot;r&#92;&quot;:0.00018917693054512044,&#92;&quot;c&#92;&quot;:5278.040156345165}]&quot;' data-total-rows='4' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;r&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;c&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "e0a516326babaa0ba69b998850b31c19",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"references\">References</h3>\n<span class=\"paragraph\">[1] T. G. Subhash Joshi and V. John, \u2018Combined transient thermal impedance estimation for pulse-power applications\u2019, in 2017 National Power Electronics Conference (NPEC), Pune: IEEE, Dec. 2017, pp. 42\u201347. doi: <a href=\"https://ieeexplore.ieee.org/document/8310432\" rel=\"noopener noreferrer\" target=\"_blank\">10.1109/NPEC.2017.8310432</a>.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}
