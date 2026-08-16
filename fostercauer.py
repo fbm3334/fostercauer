@@ -1,23 +1,34 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "altair==6.2.2",
+#     "marimo>=0.23.16",
+#     "numpy==2.5.2",
+#     "pandas==3.0.5",
+#     "sympy==1.14.0",
+# ]
+# ///
 import marimo
 
 __generated_with = "0.23.16"
 app = marimo.App(width="medium")
 
+with app.setup:
+    import marimo as mo
+
 
 @app.cell
 def _():
-    import marimo as mo
-
     import altair as alt
     import numpy as np
     import pandas as pd
     import sympy as sp
 
-    return alt, mo, np, pd, sp
+    return alt, np, pd, sp
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     # Foster to Cauer Model Conversion
 
@@ -29,7 +40,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo, pd):
+def _(pd):
     foster_df = pd.DataFrame(
         columns=['time', 'rth'],
         data=[[0.67, 1.248], [0.146, 0.833], [0.02, 0.606], [1.287, 1.568]]
@@ -39,7 +50,7 @@ def _(mo, pd):
 
 
 @app.cell
-def _(get_data, mo, set_data):
+def _(get_data, set_data):
     data_edited = mo.ui.data_editor(
         data=get_data(),
         on_change=lambda df: set_data(df)
@@ -48,7 +59,7 @@ def _(get_data, mo, set_data):
 
 
 @app.cell
-def _(foster_df, mo, set_data, set_rth_c_kw):
+def _(foster_df, set_data, set_rth_c_kw):
     restore_defaults = mo.ui.button(
         on_click=lambda _: (set_data(foster_df), set_rth_c_kw(True)),
         label='Restore defaults'
@@ -57,13 +68,13 @@ def _(foster_df, mo, set_data, set_rth_c_kw):
 
 
 @app.cell
-def _(mo):
+def _():
     get_rth_c_kw, set_rth_c_kw = mo.state(True)
     return get_rth_c_kw, set_rth_c_kw
 
 
 @app.cell
-def _(get_rth_c_kw, mo, set_rth_c_kw):
+def _(get_rth_c_kw, set_rth_c_kw):
     rth_c_kw = mo.ui.checkbox(
         label='Rth in ºC/kW',
         value=get_rth_c_kw(),
@@ -73,7 +84,7 @@ def _(get_rth_c_kw, mo, set_rth_c_kw):
 
 
 @app.cell
-def _(data_edited, mo, restore_defaults, rth_c_kw):
+def _(data_edited, restore_defaults, rth_c_kw):
     mo.vstack([
         data_edited,
         restore_defaults,
@@ -127,7 +138,7 @@ def _(edited_df, np, pd, points_df, rth_c_kw):
 
 
 @app.cell
-def _(alt, mo, plot_df):
+def _(alt, plot_df):
     term_cols = [c for c in plot_df.columns if c not in ('time', 'Rthjc')]
     terms_long = plot_df.melt(
         id_vars='time', value_vars=term_cols,
@@ -192,7 +203,7 @@ def _(calc_df, pd, sp):
 
 
 @app.cell(hide_code=True)
-def _(mo):
+def _():
     mo.md(r"""
     ### References
 
