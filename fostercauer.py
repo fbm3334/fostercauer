@@ -5,19 +5,21 @@
 #     "marimo>=0.23.16",
 #     "numpy==2.5.2",
 #     "pandas==3.0.5",
+#     "pyarrow==25.0.1",
 #     "sympy==1.14.0",
 # ]
 # ///
+
 import marimo
 
 __generated_with = "0.23.16"
-app = marimo.App(width="medium")
+app = marimo.App(width="medium", app_title="Foster to Cauer Conversion")
 
-with app.setup:
+with app.setup(hide_code=True):
     import marimo as mo
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import altair as alt
     import numpy as np
@@ -39,7 +41,7 @@ def _():
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(pd):
     foster_df = pd.DataFrame(
         columns=['time', 'rth'],
@@ -49,7 +51,7 @@ def _(pd):
     return foster_df, get_data, set_data
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(get_data, set_data):
     data_edited = mo.ui.data_editor(
         data=get_data(),
@@ -58,7 +60,7 @@ def _(get_data, set_data):
     return (data_edited,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(foster_df, set_data, set_rth_c_kw):
     restore_defaults = mo.ui.button(
         on_click=lambda _: (set_data(foster_df), set_rth_c_kw(True)),
@@ -67,13 +69,13 @@ def _(foster_df, set_data, set_rth_c_kw):
     return (restore_defaults,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     get_rth_c_kw, set_rth_c_kw = mo.state(True)
     return get_rth_c_kw, set_rth_c_kw
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(get_rth_c_kw, set_rth_c_kw):
     rth_c_kw = mo.ui.checkbox(
         label='Rth in ºC/kW',
@@ -83,7 +85,7 @@ def _(get_rth_c_kw, set_rth_c_kw):
     return (rth_c_kw,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(data_edited, restore_defaults, rth_c_kw):
     mo.vstack([
         data_edited,
@@ -93,13 +95,13 @@ def _(data_edited, restore_defaults, rth_c_kw):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(data_edited, pd):
     edited_df = pd.DataFrame(data_edited.value)
     return (edited_df,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(edited_df, np):
     min_pow_10 = np.floor(np.log10(edited_df['time'].min())) - 1
     max_pow_10 = np.ceil(np.log10(edited_df['time'].max())) + 1
@@ -108,13 +110,13 @@ def _(edited_df, np):
     return (times,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(pd, times):
     points_df = pd.DataFrame(columns=['time'], data=times)
     return (points_df,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(edited_df, np, pd, points_df, rth_c_kw):
     if rth_c_kw.value:
         calc_df = edited_df.assign(rth=edited_df['rth'] / 1000)
@@ -137,7 +139,7 @@ def _(edited_df, np, pd, points_df, rth_c_kw):
     return calc_df, plot_df
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(alt, plot_df):
     term_cols = [c for c in plot_df.columns if c not in ('time', 'Rthjc')]
     terms_long = plot_df.melt(
@@ -172,7 +174,7 @@ def _(alt, plot_df):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(calc_df, pd, sp):
     cauer_df = pd.DataFrame(columns=['r', 'c'])
     cauer_list = []
