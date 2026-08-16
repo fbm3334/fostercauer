@@ -11,14 +11,17 @@ def _():
     import altair as alt
     import numpy as np
     import pandas as pd
+    import sympy as sp
 
-    return alt, mo, np, pd
+    return alt, mo, np, pd, sp
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     # Foster to Cauer Model Conversion
+
+    Most power semiconductor datasheets provide their transient thermal resistance coefficients as Foster coefficients. While the Foster model is easier to fit mathematically, it is less physically representative than the Cauer model, so it is desirable to convert between the two.
     """)
     return
 
@@ -49,19 +52,36 @@ def _(get_data, mo, set_data):
 
 
 @app.cell
-def _(foster_df, mo, set_data):
+def _(foster_df, mo, set_data, set_rth_c_kw):
     restore_defaults = mo.ui.button(
-        on_click=lambda _: set_data(foster_df),
+        on_click=lambda _: (set_data(foster_df), set_rth_c_kw(True)),
         label='Restore defaults'
     )
     return (restore_defaults,)
 
 
 @app.cell
-def _(data_edited, mo, restore_defaults):
+def _(mo):
+    get_rth_c_kw, set_rth_c_kw = mo.state(True)
+    return get_rth_c_kw, set_rth_c_kw
+
+
+@app.cell
+def _(get_rth_c_kw, mo, set_rth_c_kw):
+    rth_c_kw = mo.ui.checkbox(
+        label='Rth in ºC/kW',
+        value=get_rth_c_kw(),
+        on_change=lambda v: set_rth_c_kw(v)
+    )
+    return (rth_c_kw,)
+
+
+@app.cell
+def _(data_edited, mo, restore_defaults, rth_c_kw):
     mo.vstack([
         data_edited,
-        restore_defaults
+        restore_defaults,
+        rth_c_kw
     ])
     return
 
@@ -79,13 +99,18 @@ def _(pd, times):
 
 
 @app.cell
-def _(edited_df, np, pd, points_df):
-    _t = points_df['time'].values
-    _tau = edited_df['time'].values
-    _rth = edited_df['rth'].values
+def _(edited_df, np, pd, points_df, rth_c_kw):
+    if rth_c_kw.value:
+        calc_df = edited_df.assign(rth=edited_df['rth'] / 1000)
+    else:
+        calc_df = edited_df
+
+    _t = points_df['time'].values     # <-- the 500-point sweep, not calc_df
+    _rth = calc_df['rth'].values      # the (possibly scaled) Foster resistances
+    _tau = calc_df['time'].values     # the Foster time constants — also should come from calc_df for consistency, though time/tau isn't affected by the unit toggle
+
     terms = _rth[None, :] * (1 - np.exp(-_t[:, None] / _tau[None, :]))
 
-    # wide: one column per Foster term
     _term_cols = pd.DataFrame(
         terms,
         columns=[f'R{i+1} (τ={tau_i:.3g}s)' for i, tau_i in enumerate(_tau)]
@@ -93,7 +118,7 @@ def _(edited_df, np, pd, points_df):
 
     plot_df = points_df.assign(Rthjc=terms.sum(axis=1))
     plot_df = pd.concat([plot_df, _term_cols], axis=1)
-    return (plot_df,)
+    return calc_df, plot_df
 
 
 @app.cell
@@ -128,6 +153,46 @@ def _(alt, mo, plot_df):
         title='Foster Network - Individual Terms and Total'
     )
     mo.ui.altair_chart(chart)
+    return
+
+
+@app.cell
+def _(calc_df, pd, sp):
+    cauer_df = pd.DataFrame(columns=['r', 'c'])
+    cauer_list = []
+    cauer_idx = []
+    s = sp.symbols('s')
+
+    # Calculate the initial Foster transfer function
+    transfer_fcn = 0
+    for count, row in enumerate(calc_df.itertuples()):
+        transfer_fcn += row.rth / (row.time * s + 1)
+
+    # Simplify into a single function and calculate the numerator/denominator
+    numerator, denominator = sp.fraction(sp.simplify(sp.together(transfer_fcn)))
+
+    for i in range(count + 1, 0, -1):
+        cauer_idx.append(i)
+        quotient, remainder = sp.div(denominator, numerator, s)
+
+        kn = quotient.coeff(s, 0)
+        resistance = 1 / kn
+        capacitance = quotient.coeff(s, 1)
+        numerator, denominator = sp.fraction(sp.simplify(-(remainder / kn) / (kn * numerator + remainder)))
+        cauer_list.append([float(resistance), float(capacitance)])
+
+    cauer_df = pd.DataFrame(columns=['r', 'c'], data=cauer_list, index=cauer_idx)
+    cauer_df
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### References
+
+    [1] T. G. Subhash Joshi and V. John, ‘Combined transient thermal impedance estimation for pulse-power applications’, in 2017 National Power Electronics Conference (NPEC), Pune: IEEE, Dec. 2017, pp. 42–47. doi: [10.1109/NPEC.2017.8310432](https://ieeexplore.ieee.org/document/8310432).
+    """)
     return
 
 
