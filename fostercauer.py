@@ -106,13 +106,22 @@ def _(alt, mo, plot_df):
 
     individual_lines = alt.Chart(terms_long).mark_line(strokeDash=[4, 2], opacity=0.6).encode(
         x=alt.X('time:Q', scale=alt.Scale(type='log'), title='Time (s)'),
-        y=alt.Y('Rth:Q', title='Rth (°C/kW)'),
-        color=alt.Color('component:N', title='Foster term')
+        y=alt.Y('Rth:Q', title='Rth (°C/W)'),
+        color=alt.Color('component:N', title='Foster term'),
+        tooltip=[
+            alt.Tooltip('time:Q', title='Time (s)', format='.3e'),
+            alt.Tooltip('Rth:Q', title='Rth (°C/W)', format='.3e'),
+            alt.Tooltip('component:N', title='Foster term')
+        ]
     )
 
-    total_line = alt.Chart(plot_df).mark_line(color='black', strokeWidth=3).encode(
-        x=alt.X('time:Q', scale=alt.Scale(type='log')),
-        y='Rthjc:Q'
+    total_line = alt.Chart(plot_df).mark_line(color='black', strokeWidth=3, tooltip=True).encode(
+        x=alt.X('time:Q', scale=alt.Scale(type='log'), title='Time (s)'),
+        y=alt.Y('Rthjc:Q', title='Rth (°C/W)'),
+        tooltip=[
+            alt.Tooltip('time:Q', title='Time (s)', format='.3e'),
+            alt.Tooltip('Rthjc:Q', title='Rth (°C/W)', format='.3e')
+        ]
     )
 
     chart = (individual_lines + total_line).properties(
